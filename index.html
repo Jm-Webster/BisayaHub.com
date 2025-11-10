@@ -16,11 +16,22 @@ header {
   padding: 15px 30px;
   display: flex;
   align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 header h1 {
   margin: 0;
   font-size: 2rem;
   color: #ff0000;
+}
+header input {
+  flex: 1;
+  min-width: 200px;
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
 }
 main {
   padding: 20px 40px;
@@ -29,36 +40,54 @@ main {
 }
 .video-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
+  margin-top: 20px;
 }
 .video-card {
-  background-color: #1f1f1f;
-  border-radius: 10px;
+  position: relative;
   overflow: hidden;
+  border-radius: 10px;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 .video-card:hover {
-  transform: translateY(-5px);
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(255,0,0,0.4);
 }
-.video-card img {
+.thumb-container {
+  position: relative;
+}
+.thumb-container img {
   width: 100%;
   display: block;
+  border-radius: 10px;
+}
+.play-btn {
+  position: absolute;
+  font-size: 50px;
+  color: rgba(255,255,255,0.8);
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  opacity:0;
+  transition: opacity 0.2s;
+}
+.video-card:hover .play-btn {
+  opacity:1;
 }
 .video-info {
-  padding: 10px 15px;
+  background: linear-gradient(to top, #121212 70%, transparent);
+  padding: 10px;
+  position: absolute;
+  bottom:0;
+  width:100%;
+  color:#fff;
 }
 .video-info h3 {
   margin: 0;
   font-size: 1.1rem;
-  color: #fff;
 }
-.video-info p {
-  font-size: 0.9rem;
-  color: #aaa;
-}
-/* Modal styles */
 .modal {
   display: none;
   position: fixed;
@@ -122,52 +151,13 @@ main {
 
 <header>
   <h1>Bisaya Hub</h1>
+  <input type="text" id="search" placeholder="Search videos...">
 </header>
 
 <main>
 <h2>Featured Videos</h2>
-<div class="video-grid">
-
-  <!-- Video 1 -->
-  <div class="video-card" onclick="openModal('Videos/video1.mp4','Gelo Tirador ng cosplayer')">
-    <img src="Thumbnails/thumb1.png" alt="Video 1">
-    <div class="video-info">
-      <h3>Gelo Tirador ng cosplayer</h3>
-    </div>
-  </div>
-
-  <!-- Video 2 -->
-  <div class="video-card" onclick="openModal('Videos/video2.mp4','Malaman Talaga pag Bulalo')">
-    <img src="Thumbnails/thumb2.png" alt="Video 2">
-    <div class="video-info">
-      <h3>Malaman Talaga pag Bulalo</h3>
-    </div>
-  </div>
-
-  <!-- Video 3 -->
-  <div class="video-card" onclick="openModal('Videos/video3.mp4','Nag pa Tulfo naka kuha ng talong')">
-    <img src="Thumbnails/thumb3.png" alt="Video 3">
-    <div class="video-info">
-      <h3>Nag pa Tulfo naka kuha ng talong</h3>
-    </div>
-  </div>
-
-  <!-- Video 4 -->
-  <div class="video-card" onclick="openModal('Videos/video4.mp4','Si george ayaw mag bigay mercy kay inay puno ng saging')">
-    <img src="Thumbnails/thumb4.png" alt="Video 4">
-    <div class="video-info">
-      <h3>Si george ayaw mag bigay mercy kay inay puno ng saging</h3>
-    </div>
-  </div>
-
-  <!-- Video 5 -->
-  <div class="video-card" onclick="openModal('Videos/video5.mp4','iba talaga pag chinata nakaka ni hao!')">
-    <img src="Thumbnails/thumb5.png" alt="Video 5">
-    <div class="video-info">
-      <h3>iba talaga pag chinata nakaka ni hao!</h3>
-    </div>
-  </div>
-
+<div class="video-grid" id="videoGrid">
+  <!-- Video cards are dynamically inserted here -->
 </div>
 </main>
 
@@ -195,22 +185,57 @@ main {
 </div>
 
 <script>
+// Video data
+const videos = [
+  {src:"Videos/video1.mp4", title:"Gelo Tirador ng cosplayer", thumb:"Thumbnails/thumb1.png"},
+  {src:"Videos/video2.mp4", title:"Malaman Talaga pag Bulalo", thumb:"Thumbnails/thumb2.png"},
+  {src:"Videos/video3.mp4", title:"Nag pa Tulfo naka kuha ng talong", thumb:"Thumbnails/thumb3.png"},
+  {src:"Videos/video4.mp4", title:"Si george ayaw mag bigay mercy kay inay puno ng saging", thumb:"Thumbnails/thumb4.png"},
+  {src:"Videos/video5.mp4", title:"iba talaga pag chinata nakaka ni hao!", thumb:"Thumbnails/thumb5.png"}
+];
+
+// Render videos function
+const grid = document.getElementById("videoGrid");
+function renderVideos(filter="") {
+  grid.innerHTML = "";
+  videos
+    .filter(v => v.title.toLowerCase().includes(filter.toLowerCase()))
+    .forEach(v=>{
+      const card = document.createElement("div");
+      card.className = "video-card";
+      card.innerHTML = `
+        <div class="thumb-container">
+          <img src="${v.thumb}" alt="${v.title}">
+          <div class="play-btn">&#9658;</div>
+        </div>
+        <div class="video-info"><h3>${v.title}</h3></div>
+      `;
+      card.onclick = ()=>openModal(v.src, v.title);
+      grid.appendChild(card);
+    });
+}
+renderVideos();
+
+// Search functionality
+document.getElementById("search").addEventListener("input", (e)=>{
+  renderVideos(e.target.value);
+});
+
+// Modal functions
 function openModal(videoSrc, title) {
   document.getElementById('modalVideo').src = videoSrc;
   document.getElementById('modalTitle').innerText = title;
   document.getElementById('videoModal').style.display = 'block';
 }
 function closeModal() {
-  var video = document.getElementById('modalVideo');
+  const video = document.getElementById('modalVideo');
   video.pause();
   video.currentTime = 0;
   document.getElementById('videoModal').style.display = 'none';
 }
 window.onclick = function(event) {
-  var modal = document.getElementById('videoModal');
-  if (event.target == modal) {
-    closeModal();
-  }
+  const modal = document.getElementById('videoModal');
+  if (event.target == modal) closeModal();
 }
 </script>
 
