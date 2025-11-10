@@ -16,8 +16,8 @@ header {
   padding: 15px 30px;
   display: flex;
   align-items: center;
-  gap: 20px;
   flex-wrap: wrap;
+  gap: 15px;
 }
 header h1 {
   margin: 0;
@@ -157,7 +157,62 @@ main {
 <main>
 <h2>Featured Videos</h2>
 <div class="video-grid" id="videoGrid">
-  <!-- Video cards are dynamically inserted here -->
+
+  <!-- Video 1 -->
+  <div class="video-card">
+    <div class="thumb-container">
+      <img src="Thumbnails/thumb1.png" alt="Gelo Tirador ng cosplayer">
+      <div class="play-btn">&#9658;</div>
+    </div>
+    <div class="video-info">
+      <h3>Gelo Tirador ng cosplayer</h3>
+    </div>
+  </div>
+
+  <!-- Video 2 -->
+  <div class="video-card">
+    <div class="thumb-container">
+      <img src="Thumbnails/thumb2.png" alt="Malaman Talaga pag Bulalo">
+      <div class="play-btn">&#9658;</div>
+    </div>
+    <div class="video-info">
+      <h3>Malaman Talaga pag Bulalo</h3>
+    </div>
+  </div>
+
+  <!-- Video 3 -->
+  <div class="video-card">
+    <div class="thumb-container">
+      <img src="Thumbnails/thumb3.png" alt="Nag pa Tulfo naka kuha ng talong">
+      <div class="play-btn">&#9658;</div>
+    </div>
+    <div class="video-info">
+      <h3>Nag pa Tulfo naka kuha ng talong</h3>
+    </div>
+  </div>
+
+  <!-- Video 4 -->
+  <div class="video-card">
+    <div class="thumb-container">
+      <img src="Thumbnails/thumb4.png" alt="Si george ayaw mag bigay mercy kay inay puno ng saging">
+      <div class="play-btn">&#9658;</div>
+    </div>
+    <div class="video-info">
+      <h3>Si george ayaw mag bigay mercy kay inay puno ng saging</h3>
+    </div>
+  </div>
+
+  <!-- Video 5 -->
+  <div class="video-card">
+    <div class="thumb-container">
+      <img src="Thumbnails/thumb5.png" alt="iba talaga pag chinata nakaka ni hao!">
+      <div class="play-btn">&#9658;</div>
+    </div>
+    <div class="video-info">
+      <h3>iba talaga pag chinata nakaka ni hao!</h3>
+    </div>
+  </div>
+
 </div>
 </main>
 
@@ -185,40 +240,20 @@ main {
 </div>
 
 <script>
-// Video data
-const videos = [
-  {src:"Videos/video1.mp4", title:"Gelo Tirador ng cosplayer", thumb:"Thumbnails/thumb1.png"},
-  {src:"Videos/video2.mp4", title:"Malaman Talaga pag Bulalo", thumb:"Thumbnails/thumb2.png"},
-  {src:"Videos/video3.mp4", title:"Nag pa Tulfo naka kuha ng talong", thumb:"Thumbnails/thumb3.png"},
-  {src:"Videos/video4.mp4", title:"Si george ayaw mag bigay mercy kay inay puno ng saging", thumb:"Thumbnails/thumb4.png"},
-  {src:"Videos/video5.mp4", title:"iba talaga pag chinata nakaka ni hao!", thumb:"Thumbnails/thumb5.png"}
+// Add click events to video cards
+const videoData = [
+  {src:"Videos/video1.mp4", title:"Gelo Tirador ng cosplayer"},
+  {src:"Videos/video2.mp4", title:"Malaman Talaga pag Bulalo"},
+  {src:"Videos/video3.mp4", title:"Nag pa Tulfo naka kuha ng talong"},
+  {src:"Videos/video4.mp4", title:"Si george ayaw mag bigay mercy kay inay puno ng saging"},
+  {src:"Videos/video5.mp4", title:"iba talaga pag chinata nakaka ni hao!"}
 ];
 
-// Render videos function
-const grid = document.getElementById("videoGrid");
-function renderVideos(filter="") {
-  grid.innerHTML = "";
-  videos
-    .filter(v => v.title.toLowerCase().includes(filter.toLowerCase()))
-    .forEach(v=>{
-      const card = document.createElement("div");
-      card.className = "video-card";
-      card.innerHTML = `
-        <div class="thumb-container">
-          <img src="${v.thumb}" alt="${v.title}">
-          <div class="play-btn">&#9658;</div>
-        </div>
-        <div class="video-info"><h3>${v.title}</h3></div>
-      `;
-      card.onclick = ()=>openModal(v.src, v.title);
-      grid.appendChild(card);
-    });
-}
-renderVideos();
-
-// Search functionality
-document.getElementById("search").addEventListener("input", (e)=>{
-  renderVideos(e.target.value);
+const cards = document.querySelectorAll('.video-card');
+cards.forEach((card, index)=>{
+  card.addEventListener('click', ()=>{
+    openModal(videoData[index].src, videoData[index].title);
+  });
 });
 
 // Modal functions
@@ -237,6 +272,16 @@ window.onclick = function(event) {
   const modal = document.getElementById('videoModal');
   if (event.target == modal) closeModal();
 }
+
+// Search functionality
+const searchInput = document.getElementById('search');
+searchInput.addEventListener('input', ()=>{
+  const filter = searchInput.value.toLowerCase();
+  cards.forEach((card, index)=>{
+    const title = videoData[index].title.toLowerCase();
+    card.style.display = title.includes(filter) ? 'block' : 'none';
+  });
+});
 </script>
 
 </body>
