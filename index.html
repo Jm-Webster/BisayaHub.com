@@ -9,8 +9,6 @@
 body, h1, h2, h3, p, ul, li, input, button {
   margin:0; padding:0; box-sizing:border-box;
 }
-
-/* Body & Header */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -18,6 +16,8 @@ body {
   color: #fff;
   scroll-behavior: smooth;
 }
+
+/* Header */
 header {
   background-color: #1f1f1f;
   padding: 15px 30px;
@@ -45,11 +45,11 @@ header input {
   font-size: 1rem;
 }
 
-/* Categories Tabs */
+/* Categories */
 #categories {
   display:flex;
   gap:10px;
-  margin-top:20px;
+  margin:20px 40px 0 40px;
 }
 #categories button {
   padding:8px 12px;
@@ -64,7 +64,7 @@ header input {
   background-color:#ff0000;
 }
 
-/* Main & Grid */
+/* Main grid */
 main {
   padding: 20px 40px;
   max-width: 1200px;
@@ -121,45 +121,29 @@ main {
   font-size: 1.1rem;
 }
 
-/* Modal */
-.modal {
+/* Full video view */
+#fullVideoView {
   display: none;
-  position: fixed;
-  z-index: 100;
-  left: 0; top: 0;
-  width: 100%; height: 100%;
-  background-color: rgba(0,0,0,0.95);
-  overflow: auto;
-}
-.modal-content {
-  background-color: #1f1f1f;
-  margin: 50px auto;
-  padding: 20px;
+  padding: 20px 40px;
   max-width: 800px;
-  border-radius: 10px;
-  position: relative;
+  margin: auto;
 }
-.modal video {
-  width: 100%;
-  border-radius: 10px;
-  margin-bottom: 15px;
-}
-.close-btn {
-  position: absolute;
-  top: 10px; right: 15px;
-  font-size: 25px;
-  font-weight: bold;
-  color: #fff;
-  cursor: pointer;
+#backToGrid {
+  margin-bottom: 10px;
+  background-color:#ff0000;
+  color:#fff;
+  border:none;
+  padding:8px 12px;
+  border-radius:5px;
+  cursor:pointer;
+  font-size:16px;
 }
 
-/* Comments */
+/* Modal comments style reused for full view */
 .comments {
   margin-top: 20px;
 }
-.comments h3 {
-  color: #ff0000;
-}
+.comments h3 { color: #ff0000; }
 .comment {
   background-color: #121212;
   padding: 10px 15px;
@@ -182,7 +166,7 @@ main {
   cursor: pointer;
 }
 
-/* Back-to-top Button */
+/* Back-to-top button */
 #backToTop {
   position: fixed;
   bottom: 20px;
@@ -226,65 +210,63 @@ footer {
 <h2>Featured Videos</h2>
 <div class="video-grid" id="videoGrid">
 
-  <!-- Video cards -->
-  <div class="video-card" data-category="featured">
+  <!-- Reordered videos -->
+  <div class="video-card" data-src="Videos/video1.mp4" data-title="Boy Jackpot naka hakot fine shyt" data-category="featured">
     <div class="thumb-container">
-      <img src="Thumbnails/thumb1.png" alt="Gelo Tirador ng cosplayer">
+      <img src="Thumbnails/thumb1.png" alt="Boy Jackpot">
       <div class="play-btn">&#9658;</div>
     </div>
-    <div class="video-info"><h3>Gelo Tirador ng cosplayer</h3></div>
+    <div class="video-info"><h3>Boy Jackpot naka hakot fine shyt</h3></div>
   </div>
 
-  <div class="video-card" data-category="trending">
+  <div class="video-card" data-src="Videos/video2.mp4" data-title="Dumadame na talaga mga fine shyt ngyon para sa mga bisaya" data-category="trending">
     <div class="thumb-container">
-      <img src="Thumbnails/thumb2.png" alt="Malaman Talaga pag Bulalo">
+      <img src="Thumbnails/thumb2.png" alt="Dumadame">
       <div class="play-btn">&#9658;</div>
     </div>
-    <div class="video-info"><h3>Malaman Talaga pag Bulalo</h3></div>
+    <div class="video-info"><h3>Dumadame na talaga mga fine shyt ngyon para sa mga bisaya</h3></div>
   </div>
 
-  <div class="video-card" data-category="featured">
+  <div class="video-card" data-src="Videos/video3.mp4" data-title="Nag pa Tulfo naka kuha tuloy ng malaking talong" data-category="featured">
     <div class="thumb-container">
-      <img src="Thumbnails/thumb3.png" alt="Nag pa Tulfo naka kuha ng talong">
+      <img src="Thumbnails/thumb3.png" alt="Nag pa Tulfo">
       <div class="play-btn">&#9658;</div>
     </div>
-    <div class="video-info"><h3>Nag pa Tulfo naka kuha ng talong</h3></div>
+    <div class="video-info"><h3>Nag pa Tulfo naka kuha tuloy ng malaking talong</h3></div>
   </div>
 
-  <div class="video-card" data-category="trending">
+  <div class="video-card" data-src="Videos/video4.mp4" data-title="masarap Talaga bulalo pag malaman!" data-category="trending">
     <div class="thumb-container">
-      <img src="Thumbnails/thumb4.png" alt="Si george ayaw mag bigay mercy kay inay puno ng saging">
+      <img src="Thumbnails/thumb4.png" alt="Masarap bulalo">
       <div class="play-btn">&#9658;</div>
     </div>
-    <div class="video-info"><h3>Si george ayaw mag bigay mercy kay inay puno ng saging</h3></div>
+    <div class="video-info"><h3>masarap Talaga bulalo pag malaman!</h3></div>
   </div>
 
-  <div class="video-card" data-category="featured">
+  <div class="video-card" data-src="Videos/video5.mp4" data-title="iba talaga pag chinata mapapa ni hao!" data-category="featured">
     <div class="thumb-container">
-      <img src="Thumbnails/thumb5.png" alt="iba talaga pag chinata nakaka ni hao!">
+      <img src="Thumbnails/thumb5.png" alt="Iba talaga">
       <div class="play-btn">&#9658;</div>
     </div>
-    <div class="video-info"><h3>iba talaga pag chinata nakaka ni hao!</h3></div>
+    <div class="video-info"><h3>iba talaga pag chinata mapapa ni hao!</h3></div>
   </div>
 
 </div>
 </main>
 
-<!-- Modal -->
-<div id="videoModal" class="modal">
-  <div class="modal-content">
-    <span class="close-btn" onclick="closeModal()">&times;</span>
-    <h2 id="modalTitle"></h2>
-    <video id="modalVideo" controls></video>
-    <div class="comments">
-      <h3>Comments</h3>
-      <div class="comment"><strong>User1:</strong> This video is awesome!</div>
-      <div class="comment"><strong>User2:</strong> Love it 😎</div>
-      <div class="comment">
-        <input type="text" placeholder="Your name">
-        <textarea placeholder="Add a comment"></textarea>
-        <button>Post Comment</button>
-      </div>
+<!-- Full Video Section -->
+<div id="fullVideoView">
+  <button id="backToGrid">&#8592; Back to menu</button>
+  <h2 id="fullTitle"></h2>
+  <video id="fullVideo" controls style="width:100%; max-width:800px;"></video>
+  <div class="comments">
+    <h3>Comments</h3>
+    <div class="comment"><strong>User1:</strong> This video is awesome!</div>
+    <div class="comment"><strong>User2:</strong> Love it 😎</div>
+    <div class="comment">
+      <input type="text" placeholder="Your name">
+      <textarea placeholder="Add a comment"></textarea>
+      <button>Post Comment</button>
     </div>
   </div>
 </div>
@@ -297,73 +279,69 @@ footer {
 </footer>
 
 <script>
-// Video data
-const videoData = [
-  {src:"Videos/video1.mp4", title:"Gelo Tirador ng cosplayer"},
-  {src:"Videos/video2.mp4", title:"Malaman Talaga pag Bulalo"},
-  {src:"Videos/video3.mp4", title:"Nag pa Tulfo naka kuha ng talong"},
-  {src:"Videos/video4.mp4", title:"Si george ayaw mag bigay mercy kay inay puno ng saging"},
-  {src:"Videos/video5.mp4", title:"iba talaga pag chinata nakaka ni hao!"}
-];
+document.addEventListener('DOMContentLoaded', function(){
 
-const cards = document.querySelectorAll('.video-card');
-cards.forEach((card, index)=>{
-  card.addEventListener('click', ()=>{
-    openModal(videoData[index].src, videoData[index].title);
-  });
-});
+  const videoCards = document.querySelectorAll('.video-card');
+  const fullVideoView = document.getElementById('fullVideoView');
+  const videoGrid = document.getElementById('videoGrid');
+  const fullVideo = document.getElementById('fullVideo');
+  const fullTitle = document.getElementById('fullTitle');
+  const backToGrid = document.getElementById('backToGrid');
+  const searchInput = document.getElementById('search');
+  const tabs = document.querySelectorAll('#categories button');
+  const backBtn = document.getElementById('backToTop');
 
-// Modal functions
-function openModal(videoSrc, title) {
-  document.getElementById('modalVideo').src = videoSrc;
-  document.getElementById('modalTitle').innerText = title;
-  document.getElementById('videoModal').style.display = 'block';
-}
-function closeModal() {
-  const video = document.getElementById('modalVideo');
-  video.pause();
-  video.currentTime = 0;
-  document.getElementById('videoModal').style.display = 'none';
-}
-window.onclick = function(event) {
-  const modal = document.getElementById('videoModal');
-  if (event.target == modal) closeModal();
-}
-
-// Search functionality
-const searchInput = document.getElementById('search');
-searchInput.addEventListener('input', ()=>{
-  const filter = searchInput.value.toLowerCase();
-  cards.forEach((card, index)=>{
-    const title = videoData[index].title.toLowerCase();
-    card.style.display = title.includes(filter) ? 'block' : 'none';
-  });
-});
-
-// Category Tabs functionality
-const tabs = document.querySelectorAll('#categories button');
-tabs.forEach(tab=>{
-  tab.addEventListener('click', ()=>{
-    tabs.forEach(t=>t.classList.remove('active'));
-    tab.classList.add('active');
-    const cat = tab.dataset.cat;
-    cards.forEach(card=>{
-      if(cat==='all') card.style.display='block';
-      else card.style.display = (card.dataset.category === cat) ? 'block' : 'none';
+  // Click thumbnail → show full video
+  videoCards.forEach(card=>{
+    card.addEventListener('click', ()=>{
+      fullVideoView.style.display = 'block';
+      videoGrid.style.display = 'none';
+      fullVideo.src = card.dataset.src;
+      fullTitle.innerText = card.dataset.title;
     });
   });
-});
 
-// Logo and Title scroll to top
-document.getElementById('logo').addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
-document.getElementById('siteTitle').addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+  // Back to grid
+  backToGrid.addEventListener('click', ()=>{
+    fullVideo.pause();
+    fullVideo.currentTime = 0;
+    fullVideoView.style.display = 'none';
+    videoGrid.style.display = 'grid';
+  });
 
-// Back-to-top button
-const backBtn = document.getElementById('backToTop');
-window.addEventListener('scroll', ()=>{
-  backBtn.style.display = (window.scrollY > 300) ? 'block' : 'none';
+  // Search
+  searchInput.addEventListener('input', ()=>{
+    const filter = searchInput.value.toLowerCase();
+    videoCards.forEach(card=>{
+      const title = card.dataset.title.toLowerCase();
+      card.style.display = title.includes(filter) ? 'block' : 'none';
+    });
+  });
+
+  // Categories
+  tabs.forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      tabs.forEach(t=>t.classList.remove('active'));
+      tab.classList.add('active');
+      const cat = tab.dataset.cat;
+      videoCards.forEach(card=>{
+        if(cat==='all') card.style.display='block';
+        else card.style.display = (card.dataset.category === cat) ? 'block' : 'none';
+      });
+    });
+  });
+
+  // Logo/title scroll to top
+  document.getElementById('logo').addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+  document.getElementById('siteTitle').addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+
+  // Back-to-top button
+  window.addEventListener('scroll', ()=>{
+    backBtn.style.display = (window.scrollY > 300) ? 'block' : 'none';
+  });
+  backBtn.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+
 });
-backBtn.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
 </script>
 
 </body>
