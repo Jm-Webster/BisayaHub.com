@@ -65,7 +65,7 @@ main {
   z-index: 100;
   left: 0; top: 0;
   width: 100%; height: 100%;
-  background-color: rgba(0,0,0,0.9);
+  background-color: rgba(0,0,0,0.95);
   overflow: auto;
 }
 .modal-content {
@@ -79,6 +79,7 @@ main {
 .modal video {
   width: 100%;
   border-radius: 10px;
+  margin-bottom: 15px;
 }
 .close-btn {
   position: absolute;
@@ -126,59 +127,47 @@ main {
 <main>
 <h2>Featured Videos</h2>
 <div class="video-grid">
+
   <!-- Video 1 -->
-  <div class="video-card" onclick="openModal('Videos/video1.mp4','Video Title 1')">
+  <div class="video-card" onclick="openModal('Videos/video1.mp4','Gelo Tirador ng cosplayer')">
     <img src="Images/thumb1.png" alt="Video 1">
     <div class="video-info">
-      <h3>Video Title 1</h3>
-      <p>Short description here</p>
+      <h3>Gelo Tirador ng cosplayer</h3>
     </div>
   </div>
 
   <!-- Video 2 -->
-  <div class="video-card" onclick="openModal('Videos/video2.mp4','Video Title 2')">
+  <div class="video-card" onclick="openModal('Videos/video2.mp4','Malaman Talaga pag Bulalo')">
     <img src="Images/thumb2.png" alt="Video 2">
     <div class="video-info">
-      <h3>Video Title 2</h3>
-      <p>Short description here</p>
+      <h3>Malaman Talaga pag Bulalo</h3>
     </div>
   </div>
 
   <!-- Video 3 -->
-  <div class="video-card" onclick="openModal('Videos/video3.mp4','Video Title 3')">
+  <div class="video-card" onclick="openModal('Videos/video3.mp4','Nag pa Tulfo naka kuha ng talong')">
     <img src="Images/thumb3.png" alt="Video 3">
     <div class="video-info">
-      <h3>Video Title 3</h3>
-      <p>Short description here</p>
+      <h3>Nag pa Tulfo naka kuha ng talong</h3>
     </div>
   </div>
 
   <!-- Video 4 -->
-  <div class="video-card" onclick="openModal('Videos/video4.mp4','Video Title 4')">
+  <div class="video-card" onclick="openModal('Videos/video4.mp4','Si george ayaw mag bigay mercy kay inay puno ng saging')">
     <img src="Images/thumb4.png" alt="Video 4">
     <div class="video-info">
-      <h3>Video Title 4</h3>
-      <p>Short description here</p>
+      <h3>Si george ayaw mag bigay mercy kay inay puno ng saging</h3>
     </div>
   </div>
 
   <!-- Video 5 -->
-  <div class="video-card" onclick="openModal('Videos/video5.mp4','Video Title 5')">
+  <div class="video-card" onclick="openModal('Videos/video5.mp4','iba talaga pag chinata nakaka ni hao!')">
     <img src="Images/thumb5.png" alt="Video 5">
     <div class="video-info">
-      <h3>Video Title 5</h3>
-      <p>Short description here</p>
+      <h3>iba talaga pag chinata nakaka ni hao!</h3>
     </div>
   </div>
 
-  <!-- Video 6 -->
-  <div class="video-card" onclick="openModal('Videos/video6.mp4','Video Title 6')">
-    <img src="Images/thumb6.png" alt="Video 6">
-    <div class="video-info">
-      <h3>Video Title 6</h3>
-      <p>Short description here</p>
-    </div>
-  </div>
 </div>
 </main>
 
@@ -212,8 +201,10 @@ function openModal(videoSrc, title) {
   document.getElementById('videoModal').style.display = 'block';
 }
 function closeModal() {
+  var video = document.getElementById('modalVideo');
+  video.pause();
+  video.currentTime = 0;
   document.getElementById('videoModal').style.display = 'none';
-  document.getElementById('modalVideo').pause();
 }
 window.onclick = function(event) {
   var modal = document.getElementById('videoModal');
